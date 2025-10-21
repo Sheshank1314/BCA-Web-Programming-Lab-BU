@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employee Payroll Calculation</title>
+</head>
+<body>
+<h1>Employee Information Form</h1>
+<form id-"employeeForm">
+<label for="basicPay">Basic Pay: </label>
+<input type="number" id="basicPay" name="basicPay"><br><br>
+<input type="button" value="Calculate" onclick="calculatePay()">
+</form>
+<h2>Payroll Details</h2>
+<p id="result"></p>
+<script>
+function calculatePay() {
+const basicPay = parseFloat(document.getElementById('basicPay').value);
+// Constants for percentages (can be adjusted as per rules)
+const DA_PERCENT = 20; // 20% of Basic Pay
+const HRA_PERCENT = 15; // 15% of Basic Pay
+const PF_PERCENT = 12; // 12% of Basic Pay
+const TAX_PERCENT = 10; // 10% of Gross Pay
+// Calculations
+const DA = basicPay * (DA_PERCENT / 100);
+Const HRA = basicPay * (HRA_PERCENT / 100);
+const PF = basicPay * (PF_PERCENT / 100);
+const GrossPay = basicPay + DA + HRA;
+const Tax = GrossPay * (TAX_PERCENT / 100);
+const Deducticns = PF + Tax;
+const NetPay = GrossPay - Deductions;
+// Displaying the results
+const resultDiv = document.getElementById('result');
+resultDiv.innerHTML =
+<strong>Basic Pay: </strong> ${basicPay.toFixed(2)}<br>
+<strong>DA:</strong> ${DA.toFixed(2)}<br>
+<strong>HRA:</strong> ${HRA.toFixed(2)}<br>
+<strong>Gross Pay:</strong> ${GrossPay.toFixed(2)}<br>
+<strong>PF:</strong> ${PF.toFixed(2)}<br>
+<strong>TAX:</strong> ${Tax.toFixed(2)}<br>
+<strong>Total Deductions:</strong> ${Deductions.toFixed(2)}<br>
+<strong>Net Pay:</strong> ${NetPay.toFixed(2)}
+}
+}
+</script>
+</body>
+</html>
+
+
+
