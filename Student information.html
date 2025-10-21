@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Information</title>
+<script>
+function calculateResults() {
+}
+var marks = document.getElementsByClassName('marks');
+var total = 0;
+for(var i = 0; 1 < marks.length; i++) {
+total += parseInt(marks[i].value, 10);
+}
+var average = total / marks.length;
+var result = average >- 40? 'Pass': 'Fail';
+var grade = '';
+if (average >= 80) {
+grade = 'A';
+} else if (average >= 60) {
+grade = 'B';
+} else if (average >= 40) {
+grade = 'C';
+} else {
+grade = 'F';
+}
+document.getElementById('total').innerHTML = 'Total:' + total;
+document.getElementById('average').innerHTML = 'Average:'+ average.tofixed(2); document.getElementById('result').innerHTML = 'Result:' + result;
+document.getElementById('grade').innerHTML = 'Grade:' + grade;
+}
+</script>
+</head>
+<body>
+<h2>Student Information</h2>
+<form>
+Name: <input type="text" id="name"><br><br>
+Marks 1: <input type="number" class="marks"><br><br>
+Marks 2: <input type"number" class="marks"><br><br>
+Marks 3: <input type="number" class="marks"><br><br>
+<button type="button" onclick="calculateResults()">Calculate</button>
+</form>
+<p id="total"></p>
+<p id="average"></p>
+<p id="result"></p>
+<p id="grade"></p>
+</body>
+</html>
+
