@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dynamic Page with Animation</title> <style>
+layer {
+width: 200px;
+height: 200px;
+background-color: skyblue;
+position: absolute;
+text-align: center;
+line-height: 200px;
+border-radius: 10pх;
+left: 0;
+top: 100рx;
+}
+</style>
+</head>
+<body>
+<div id="movingLayer" class-"layer">Web Programming</div>
+<script>
+document.addEventlistener('DOMContentLoaded', () -> {
+const layer = document.getElementById('movingLayer');
+let position = 0;
+let direction = 1;
+setInterval(() => {
+if (position > window.innerWidth - 200 || position < 0) {
+direction *= -1;
+}
+position += 5 direction;
+layer.style.left = position + 'px';
+}, 50};
+}};
+</script>
+</body>
+</html>
