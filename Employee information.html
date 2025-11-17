@@ -1,50 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Employee Payroll Calculation</title>
-</head>
-<body>
-<h1>Employee Information Form</h1>
-<form id-"employeeForm">
-<label for="basicPay">Basic Pay: </label>
-<input type="number" id="basicPay" name="basicPay"><br><br>
-<input type="button" value="Calculate" onclick="calculatePay()">
-</form>
-<h2>Payroll Details</h2>
-<p id="result"></p>
-<script>
-function calculatePay() {
-const basicPay = parseFloat(document.getElementById('basicPay').value);
-// Constants for percentages (can be adjusted as per rules)
-const DA_PERCENT = 20; // 20% of Basic Pay
-const HRA_PERCENT = 15; // 15% of Basic Pay
-const PF_PERCENT = 12; // 12% of Basic Pay
-const TAX_PERCENT = 10; // 10% of Gross Pay
-// Calculations
-const DA = basicPay * (DA_PERCENT / 100);
-Const HRA = basicPay * (HRA_PERCENT / 100);
-const PF = basicPay * (PF_PERCENT / 100);
-const GrossPay = basicPay + DA + HRA;
-const Tax = GrossPay * (TAX_PERCENT / 100);
-const Deducticns = PF + Tax;
-const NetPay = GrossPay - Deductions;
-// Displaying the results
-const resultDiv = document.getElementById('result');
-resultDiv.innerHTML =
-<strong>Basic Pay: </strong> ${basicPay.toFixed(2)}<br>
-<strong>DA:</strong> ${DA.toFixed(2)}<br>
-<strong>HRA:</strong> ${HRA.toFixed(2)}<br>
-<strong>Gross Pay:</strong> ${GrossPay.toFixed(2)}<br>
-<strong>PF:</strong> ${PF.toFixed(2)}<br>
-<strong>TAX:</strong> ${Tax.toFixed(2)}<br>
-<strong>Total Deductions:</strong> ${Deductions.toFixed(2)}<br>
-<strong>Net Pay:</strong> ${NetPay.toFixed(2)}
-}
-}
-</script>
-</body>
+<html>
+  <head>
+    <title>Employee Salary Calculation</title>
+  </head>
+  <body>
+    <h2>Employee Information</h2>
+
+    
+    <form onsubmit="return false;">
+      Name: <input type="text" id="empName"><br><br>
+      Basic Salary: <input type="number" id="basic"><br><br>
+      <button type="button" onclick="calculateSalary()">Calculate</button>
+    </form>
+    <h3>Salary Details:</h3>
+    <p id="da"></p>
+    <p id="hra"></p>
+    <p id="pf"></p>
+    <p id="tax"></p>
+    <p id="gross"></p>
+    <p id="deduction"></p>
+    <p id="net"></p>
+    
+    <script>
+      function calculateSalary() {
+        const name = document.getElementById("empName").value;
+        const basic = parseFloat(document.getElementById("basic").value);
+        
+        if (!name || isNaN(basic)) {
+          alert("Please enter both name and a valid basic salary.");
+          return;
+
+        }
+        
+        const da = basic * 0.10;
+        const hra = basic * 0.15;
+        const pf = basic * 0.05;
+        const tax = basic * 0.08;
+        
+        const gross = basic + da + hra;
+        const deduction = pf + tax;
+        const net = gross - deduction;
+        
+        document.getElementById("da").innerText = "DA: ₹" + da.toFixed(2);
+        document.getElementById("hra").innerText = "HRA: ₹" + hra.toFixed(2);
+        document.getElementById("pf").innerText = "PF: ₹" + pf.toFixed(2);
+        document.getElementById("tax").innerText = "TAX: ₹" + tax.toFixed(2);
+        document.getElementById("gross").innerText = "Gross Pay: ₹" + gross.toFixed(2);
+        document.getElementById("deduction").innerText = "Total Deduction: ₹" + deduction.toFixed(2);
+        document.getElementById("net").innerText = "Net Pay: ₹" + net.toFixed(2);
+        
+        // Save to localStorage
+        const data = {
+          name,
+          basic,
+          da,
+          hra,
+          pf,
+          tax,
+          gross,
+          deduction,
+          net
+        };
+        localStorage.setItem("salaryData", JSON.stringify(data));
+      }
+      
+      // Load from localStorage on page load
+      window.onload = function () {
+        const saved = localStorage.getItem("salaryData");
+        if (saved) {
+          const data = JSON.parse(saved);
+          document.getElementById("empName").value = data.name;
+          document.getElementById("basic").value = data.basic;
+          
+          document.getElementById("hra").innerText = "HRA: ₹" + data.hra.toFixed(2);
+          document.getElementById("pf").innerText = "PF: ₹" + data.pf.toFixed(2);
+          document.getElementById("tax").innerText = "TAX: ₹" + data.tax.toFixed(2);
+          document.getElementById("gross").innerText = "Gross Pay: ₹" + data.gross.toFixed(2);
+          document.getElementById("deduction").innerText = "Total Deduction: ₹" + data.deduction.toFixed(2);
+          document.getElementById("net").innerText = "Net Pay: ₹" + data.net.toFixed(2);
+        }
+      };
+    </script>
+  </body>
 </html>
-
-
-
