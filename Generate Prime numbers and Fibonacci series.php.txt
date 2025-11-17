@@ -1,11 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prime and Fibonacci Generator</title>
+</head>
+<body>
+
+<h2>Enter Values</h2>
+
+<form method="post">
+<label>Generate Prime Numbers up to:</label><br>
+<input type="number" name="prime_limit" placeholder="e.g. 100"
+value="<?php echo isset($_POST['prime_limit']) ?
+htmlspecialchars($_POST['prime_limit']) : ''; ?>"><br><br>
+
+<label>Number of Fibonacci terms:</label><br>
+<input type="number" name="fib_limit" placeholder="e.g. 10"
+value="<?php echo isset($_POST['fib_limit']) ? htmlspecialchars($_POST['fib_limit']) : "; ?>"><br><br>
+
+<input type="submit" value="Generate">
+</form>
+
 <?php
-function generatePrimes ($maxNumber) {
-echo "Prime numbers up to $maxNumber: ";
-for ($number = 2; $number <= $maxNumber; $number++) {
-$isPrime true;
-for ($i 2; $i <= sqrt($number); $1++) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$prime_limit = isset($_POST['prime_limit']) && is_numeric($_POST['prime_limit']) ?
+intval($_POST['prime_limit']) : null;
+$fib_limit = isset($_POST['fib_limit']) && is_numeric($_POST['fib_limit']) ?
+intval($_POST['fib_limit']) : null;
+
+if ($prime_limit !== null && $prime_limit >= 2) {
+echo "<h2>Prime Numbers from 1 to $prime_limit</h2>";
+
+for ($number = 2; $number <= $prime_limit; $number++) {
+$isPrime = true;
+for ($i = 2; $i <= sqrt($number); $i++) {
 if ($number % $i == 0) {
-$isPrime false;
+$isPrime = false;
 break;
 }
 }
@@ -13,21 +42,27 @@ if ($isPrime) {
 echo $number . " ";
 }
 }
-echo "<br>";
 }
-function fibonacciSeries ($numTerms) {
-$first = 0;
-$second = 1;
-echo "Fibonacci Series ($numTerms terms): ";
-for ($i = 0; $i < $numTerms; $i++) {
-echo $first." ";
-$next = $first + $second;
-$first = $second;
-$second = $next;
+
+if ($fib_limit !== null && $fib_limit >= 1) {
+echo "<h2>Fibonacci Series (First $fib_limit Numbers):</h2>";
+
+$n1 = 0;
+$n2 = 1;
+
+if ($fib_limit >= 1) echo $n1 . " ";
+if ($fib_limit >= 2) echo $n2 . " ";
+for ($i = 3; $i <= $fib_limit; $i++) {
+$n3 = $n1 + $n2;
+echo $n3 . " ";
+$n1 = $n2;
+$n2 = $n3;
 }
-echo "<br>";
 }
-// Call the functions with desired parameters
-generatePrimes(50); // Generate prise numbers up to 50
-fbonacciSeries(10); // Generate 10 terms of the Fibonacci series
+if (($prime_limit === null || $prime_limit < 2) && ($fib_limit === null || $fib_limit < 1)) {
+echo "<p style='color:red;'>Please enter at least one valid input.</p>";
+}
+}
 ?>
+</body>
+</html>
