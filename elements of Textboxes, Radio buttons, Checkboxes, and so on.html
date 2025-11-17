@@ -4,57 +4,59 @@
 <title>Form Validation Example</title>
 <script>
 function validateForm() {
-var form = document.forms["myForm"];
-var name = form["name"].value;
-var email = form["email"].value;
-var mobile = form["mobile"].value;
-var genderMale = form["gender"][0].checked;
-var genderFemale = form["gender"][1].checked;
-var errors = [];
-if (name == "") {
-errors.push("Name must be filled out");
-}
-if (email == "") {
-errors.push("Email must be filled out");
-} else {
-var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-if (!email.match(emailPattern)) {
-errors.push("Please enter a valid email address");
-}
-}
-if (mobile == "") {errors.push("Mobile number must be filled out");
-} else {
-if (mobile.length != 10 || isNaN(mobile)) {
-errors.push("Mobile number must be exactly 10 digits");
-}
-}
-if (!genderMale && !genderFemale) {
-errors.push("Please select a gender");
-}
-if (errors.length > 0) {
-alert(errors.join("\n"));
-return false; // prevent form submission and keep input values
-}
-alert("Form submitted successfully!");
-return true;
+  var form = document.forms["myForm"];
+  var name = form["name"].value;
+  var email = form["email"].value;
+  var mobile = form["mobile"].value;
+  var genderMale = form["gender"][0].checked;
+  var genderFemale = form["gender"][1].checked;
+  var errors = [];
+  if (name == "") {
+    errors.push("Name must be filled out");
+  }
+  if (email == "") {
+    errors.push("Email must be filled out");
+  } else {
+    var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(emailPattern)) {
+      errors.push("Please enter a valid email address");
+    }
+  }
+  if (mobile == "") {
+    errors.push("Mobile number must be filled out");
+  } else {
+    if (mobile.length != 10 || isNaN(mobile)) {
+      errors.push("Mobile number must be exactly 10 digits");
+    }
+  }
+  if (!genderMale && !genderFemale) {
+    errors.push("Please select a gender");
+  }
+  if (errors.length > 0) {
+    alert(errors.join("\n"));
+    return false; // prevent form submission and keep input values
+  }
+  alert("Form submitted successfully!");
+  return true;
 }
 </script>
 </head>
-<body>
-<h2>Registration Form</h2>
-<form name="myForm" onsubmit="return validateForm()" method="post"><label for="name">Name:</label>
-<input type="text" name="name" value=""><br><br>
-<label for="email">Email:</label>
-<input type="text" name="email" value=""><br><br>
-<label for="mobile">Mobile Number:</label>
-<input type="text" name="mobile" value=""><br><br>
-<label>Gender:</label>
-<input type="radio" name="gender" value="Male"> Male
-<input type="radio" name="gender" value="Female"> Female<br><br><label>Hobbies:</label>
-<input type="checkbox" name="hobby1" value="Reading"> Reading
-<input type="checkbox" name="hobby2" value="Sports"> Sports
-<input type="checkbox" name="hobby3" value="Music"> Music<br><br>
-<input type="submit" value="Submit">
-</form>
-</body>
+  <body>
+    <h2>Registration Form</h2>
+    <form name="myForm" onsubmit="return validateForm()" method="post"><label for="name">Name:</label>
+      <input type="text" name="name" value=""><br><br>
+      <label for="email">Email:</label>
+      <input type="text" name="email" value=""><br><br>
+      <label for="mobile">Mobile Number:</label>
+      <input type="text" name="mobile" value=""><br><br>
+      <label>Gender:</label>
+      <input type="radio" name="gender" value="Male"> Male
+      <input type="radio" name="gender" value="Female"> Female<br><br><label>Hobbies:</label>
+      <input type="checkbox" name="hobby1" value="Reading"> Reading
+      <input type="checkbox" name="hobby2" value="Sports"> Sports
+      <input type="checkbox" name="hobby3" value="Music"> Music<br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
 </html>
+
