@@ -1,30 +1,49 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Color Change by Day</title>
 <?php
-$daysOfWeek = array{
-'Sunday' => '#FF5733',
-'Monday' => '#33FF57',
-'Tuesday' => '#3357FF',
-'Wednesday' > '#FFFF33',
-'Thursday' => '#FF33FF',
-'Friday' => '#33FFFF',
-'Saturday' => '#FF3333',
-};
-$currentDay = date('l'); // Gets the full textual representation of the day
-$backgroundColor= '#FFFFFF'; // Default color
-if (array_key_exists($currentDay, $daysOfweek)) {
-$backgroundColor = $daysOfWeek[$currentDay];
+// Array of colors for each day
+$dayColors = array(
+  "Monday" => "lightblue",
+  "Tuesday" => "lightgreen",
+  "Wednesday" => "lightyellow",
+  "Thursday" => "orange",
+  "Friday" => "lightpink",
+  "Saturday" => "lightgray",
+  "Sunday" => "lightcoral"
+);
+
+// Get current day
+$day = date("l");
+
+// Set default background color
+$bgColor = "white";
+
+// Check day and set color using if...else if
+if($day == "Monday") {
+  $bgColor = $dayColors["Monday"];
+} else if($day == "Tuesday") {
+  $bgColor = $dayColors["Tuesday"];
+} else if($day == "Wednesday") {
+  $bgColor = $dayColors["Wednesday"];
+} else if($day == "Thursday") {
+  $bgColor = $dayColors["Thursday"];
+} else if($day == "Friday") {
+  $bgColor = $dayColors["Friday"];
+} else if($day == "Saturday") {
+  $bgColor = $dayColors["Saturday"];
+} else if($day == "Sunday") {
+  $bgColor = $dayColors["Sunday"];
 }
 ?>
-<style>
-body {
-background-color: <?php ecno $backgroundColor; ?>;
-}
-</style>
-</head>
-<body>
-<h1>Welcome! Today is <?php echo $currentDay; ?>.</h1>
-</body>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Background Color Based on Day</title>
+  
+  </head>
+  
+  <body style="background-color: <?php echo $bgColor; ?>;">
+    <h2>Today is <?php echo $day; ?></h2>
+    <p>The background color changes based on the day of the week.</p>
+  
+  </body>
 </html>
