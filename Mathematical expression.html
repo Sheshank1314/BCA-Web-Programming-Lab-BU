@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Math Expression Evaluator</title>
-</head>
-<body>
-<form id="mathForm">
-<label for="expression">Enter Mathematical Expression:</label>
-<input type="text" id="expression" name="expression">
-<input type-"button" value="Evaluate" onclick="evaluateExpression()">
-</form>
-<div id="result"></div>
-<script>
-function evaluateExpression() {
-try {
-var expression = document.getElementById('expression').value;
-var result = eval(expression);
-document.getElementById('result').innerText - 'Result: '+ result;
-} catch (error) {
-document.getElementById('result').innerText 'Invalid expression';
-}
-}
-</script>
-</body>
+  <head>
+    <title>Evaluate Math Expression</title>
+    <script>
+      function evaluateExpression() {
+        var expression = document.getElementById("expression").value;
+        try {
+          var result = eval(expression); // Caution: eval should only be used in trusted environments
+          document.getElementById("result").innerHTML = "Result: " + result;
+        } catch (error) {
+          document.getElementById("result").innerHTML = "Invalid Expression!";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Math Expression Evaluator</h2>
+    <form onsubmit="event.preventDefault(); evaluateExpression();">
+      <label>Enter a Math Expression:</label><br>
+      <input type="text" id="expression" placeholder="e.g. 5 + 3 * 2"><br><br>
+      <input type="submit" value="Evaluate">
+    </form>
+    
+    <p id="result"></p>
+  </body>
 </html>
