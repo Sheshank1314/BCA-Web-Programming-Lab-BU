@@ -1,0 +1,49 @@
+<?php
+// Array of colors for each day
+$dayColors = array(
+  "Monday" => "lightblue",
+  "Tuesday" => "lightgreen",
+  "Wednesday" => "lightyellow",
+  "Thursday" => "orange",
+  "Friday" => "lightpink",
+  "Saturday" => "lightgray",
+  "Sunday" => "lightcoral"
+);
+
+// Get current day
+$day = date("l");
+
+// Set default background color
+$bgColor = "white";
+
+// Check day and set color using if...else if
+if($day == "Monday") {
+  $bgColor = $dayColors["Monday"];
+} else if($day == "Tuesday") {
+  $bgColor = $dayColors["Tuesday"];
+} else if($day == "Wednesday") {
+  $bgColor = $dayColors["Wednesday"];
+} else if($day == "Thursday") {
+  $bgColor = $dayColors["Thursday"];
+} else if($day == "Friday") {
+  $bgColor = $dayColors["Friday"];
+} else if($day == "Saturday") {
+  $bgColor = $dayColors["Saturday"];
+} else if($day == "Sunday") {
+  $bgColor = $dayColors["Sunday"];
+}
+?>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Background Color Based on Day</title>
+  
+  </head>
+  
+  <body style="background-color: <?php echo $bgColor; ?>;">
+    <h2>Today is <?php echo $day; ?></h2>
+    <p>The background color changes based on the day of the week.</p>
+  
+  </body>
+</html>

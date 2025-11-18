@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Prime and Fibonacci Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 12px; font-size: 14px; }
+        label { display: block; margin-top: 8px; }
+        input[type="number"] { width: 160px; margin-top:4px; padding:4px; }
+        input[type="submit"] { margin-top:10px; padding:6px 10px; }
+        .result { margin-top:18px; }
+        .result h2 { margin: 6px 0; font-size: 15px; }
+        .numbers { white-space: pre-wrap; margin-left: 6px; }
+        .error { color: red; margin-top: 12px; }
+    </style>
+</head>
+<body>
+
+<h2>Enter Values</h2>
+
+<form method="post" novalidate>
+    <label>Generate Prime Numbers up to:</label>
+    <input type="number" name="prime_limit" placeholder="e.g. 100"
+           value="<?php echo isset($_POST['prime_limit']) ? htmlspecialchars($_POST['prime_limit'], ENT_QUOTES) : ''; ?>">
+
+    <label>Number of Fibonacci terms:</label>
+    <input type="number" name="fib_limit" placeholder="e.g. 10"
+           value="<?php echo isset($_POST['fib_limit']) ? htmlspecialchars($_POST['fib_limit'], ENT_QUOTES) : ''; ?>">
+
+    <br>
+    <input type="submit" value="Generate">
+</form>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $prime_limit = (isset($_POST['prime_limit']) && $_POST['prime_limit'] !== '' && is_numeric($_POST['prime_limit']))
+        ? intval($_POST['prime_limit'])
+        : null;
+    $fib_limit = (isset($_POST['fib_limit']) && $_POST['fib_limit'] !== '' && is_numeric($_POST['fib_limit']))
+        ? intval($_POST['fib_limit'])
+        : null;
+
+    $showAny = false;
+
+    function is_prime_int(int $n): bool {
+        if ($n < 2) return false;
+        if ($n === 2) return true;
+        if ($n % 2 === 0) return false;
+        $limit = (int) floor(sqrt($n));
+        for ($i = 3; $i <= $limit; $i += 2) {
+            if ($n % $i === 0) return false;
+        }
+        return true;
+    }
+
+    if ($prime_limit !== null && $prime_limit >= 2) {
+        $showAny = true;
+        echo '<div class="result">';
+        echo '<h2>Prime Numbers from 1 to ' . htmlspecialchars((string)$prime_limit, ENT_QUOTES) . '</h2>';
+
+        $primes = [];
+        for ($n = 2; $n <= $prime_limit; $n++) {
+            if (is_prime_int($n)) $primes[] = $n;
+        }
+
+        // Join with a single space so output matches the screenshot
+        $prime_line = count($primes) ? implode(' ', $primes) : 'No primes found in this range.';
+        echo '<div class="numbers">' . htmlspecialchars($prime_line, ENT_QUOTES) . '</div>';
+        echo '</div>';
+    }
+
+    if ($fib_limit !== null && $fib_limit >= 1) {
+        $showAny = true;
+        echo '<div class="result">';
+        echo '<h2>Fibonacci Series (First ' . htmlspecialchars((string)$fib_limit, ENT_QUOTES) . ' Numbers):</h2>';
+
+        $fib = [];
+        $n1 = 0; $n2 = 1;
+        if ($fib_limit >= 1) $fib[] = $n1;
+        if ($fib_limit >= 2) $fib[] = $n2;
+        for ($i = 3; $i <= $fib_limit; $i++) {
+            $n3 = $n1 + $n2;
+            $fib[] = $n3;
+            $n1 = $n2; $n2 = $n3;
+        }
+
+        $fib_line = implode(' ', $fib);
+        echo '<div class="numbers">' . htmlspecialchars($fib_line, ENT_QUOTES) . '</div>';
+        echo '</div>';
+    }
+
+    if (!$showAny) {
+        echo '<p class="error">Please enter at least one valid input (prime limit ≥ 2 or fibonacci terms ≥ 1).</p>';
+    }
+}
+?>
+</body>
+</html>
